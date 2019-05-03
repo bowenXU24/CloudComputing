@@ -1,9 +1,13 @@
 ##Cloud Computing
 ### Coursework Project Repository
-####Team members:  
+####Team members:
+
 Bowen Xu
+
 Yesi Xie
+
 Wenting Wang
+
 #### Software Configurations
 Operating System: Ubuntu 16.04.3  
 IDE: IntelliJ  
