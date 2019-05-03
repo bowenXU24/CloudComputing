@@ -1,1 +1,1 @@
-# CSYE 6225 Web Application
+# Web Application
