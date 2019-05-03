@@ -1,0 +1,88 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+apply plugin: 'idea'
+apply plugin: "io.spring.dependency-management"
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.136'
+    }
+}
+
+
+dependencies {
+    // Spring Boot dependencies
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-actuator-docs')
+    compile('org.springframework.boot:spring-boot-starter-mail')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.session:spring-session')
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+    //JPA Data(We are going to use Repositories, Entities, Hibernate, etc...)
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile ('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile 'com.amazonaws:aws-java-sdk-s3'
+
+    compile('com.h2database:h2:+')
+
+
+    compile('org.apache.commons:commons-lang3:+')
+    compile('com.google.guava:guava:+')
+    compile('org.apache.httpcomponents:httpclient:+')
+    compile('com.google.code.gson:gson:+')
+    compile('com.amazonaws:aws-java-sdk-sns:+')
+
+    runtime('org.springframework.boot:spring-boot-devtools')
+
+    //Use Mysql Connector-J
+    runtime('mysql:mysql-connector-java')
+
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
+    testCompile('io.rest-assured:rest-assured:3.0.3')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+}
+
+war {
+    archiveName = 'ROOT.war'
+}
